@@ -6,7 +6,7 @@
     <title>Agrocitrico</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 </head>
 <body>
@@ -17,32 +17,240 @@
                     <img src="{{ url_for('static', filename='img/agrocitrico_logo.svg') }}" alt="Logo de AgroCítrico">
                 </a>
                 <ul class="nav-links">
-                    <li><a class="active" href="#nosotros">Nosotros</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
                     <li><a href="#mision-vision">Misión y visión</a></li>
                     <li><a href="#objetivos">Objetivos</a></li>
                     <li><a href="#tecnologias">Tecnologías</a></li>
                 </ul>
-                <a class="cta" href="#contacto">Contáctanos</a>
+                <a class="cta" href="#registro">Registrate</a>
             </nav>
         </div>
     </header>
 
     <main>
-        <section class="hero" id="nosotros">
-            <div class="container hero-grid">
+        <section class="hero" id="inicio">
+            <div class="hero-grid">
                 <div class="hero-content">
-                    <span class="hero-kicker">AGROCÍTRICO</span>
-                    <h1>Gestión clara para cultivos cítricos más productivos</h1>
-                    <p>
-                        Centraliza el seguimiento del cultivo, organiza datos clave de campo y toma decisiones con información precisa en un solo flujo de trabajo.
-                    </p>
-                    <a class="hero-action" href="#tecnologias">Ver tecnologías</a>
+                    <span class="hero-eyebrow">Gestión agrícola digital</span>
+                    <h1>Gestión clara<br>para cultivos<br><em>cítricos.</em></h1>
+                    <p>Centraliza el seguimiento del cultivo, organiza datos clave de campo y toma decisiones con información precisa.</p>
+                    <div class="hero-actions">
+                        <a class="hero-action" href="#nosotros">Comenzar</a>
+                    </div>
                 </div>
-                <figure class="hero-media">
-                    <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?auto=format&fit=crop&w=1200&q=80" alt="Cultivo cítrico con frutos en producción">
-                </figure>
+                <div class="hero-image">
+                    <img src="{{ url_for('static', filename='img/campesino.png') }}"
+                         alt="Campesino agricultor colombiano">
+                </div>
+            </div>
+        </section>
+
+        <section class="about" id="nosotros">
+            <div class="container">
+                <div class="about-grid">
+                    <div class="about-visual reveal">
+                        <div class="about-circle-bg"></div>
+                        <figure class="about-img">
+                            <img src="https://images.unsplash.com/photo-1622383563227-04401ab4e5ea?auto=format&fit=crop&w=800&q=80"
+                                 alt="Agricultor inspeccionando cultivo de limón">
+                        </figure>
+                    </div>
+                    <div class="about-body">
+                        <p class="about-tag reveal">— Nosotros</p>
+                        <h2 class="reveal reveal-d1">¿Qué es <em>AgroCítrico?</em></h2>
+                        <p class="about-desc reveal reveal-d2">Plataforma web para agricultores de limón que automatiza el control de labores de campo y reemplaza el cuaderno de notas por alertas y registros digitales.</p>
+                        <div class="about-stats reveal reveal-d3">
+                            <div>
+                                <strong>3</strong>
+                                <span>Labores monitoreadas</span>
+                            </div>
+                            <div>
+                                <strong>24h</strong>
+                                <span>Anticipación en alertas</span>
+                            </div>
+                            <div>
+                                <strong>100%</strong>
+                                <span>Historial consultable</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="mv" id="mision-vision">
+            <div class="container">
+                <div class="mv-row">
+                    <div class="mv-visual reveal">
+                        <div class="mv-block mv-block--green"></div>
+                        <figure class="mv-img">
+                            <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?auto=format&fit=crop&w=800&q=80" alt="Frutos de limón en el árbol">
+                            <figcaption class="mv-label">
+                                <strong>Nuestra Misión</strong>
+                                <span>AgroCítrico</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="mv-content reveal reveal-d1">
+                        <span class="mv-quote">"</span>
+                        <h2>Nuestra Misión</h2>
+                        <p>Digitalizar el control de labores agrícolas para que cada agricultor de limón registre, planifique y consulte su trabajo de campo sin depender de la memoria ni del papel.</p>
+                    </div>
+                </div>
+
+                <div class="mv-row mv-row--flip">
+                    <div class="mv-visual mv-visual--flip reveal">
+                        <div class="mv-block mv-block--yellow"></div>
+                        <figure class="mv-img">
+                            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80" alt="Panorama de campo agrícola al amanecer">
+                            <figcaption class="mv-label mv-label--alt">
+                                <strong>Nuestra Visión</strong>
+                                <span>AgroCítrico</span>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <div class="mv-content reveal reveal-d1">
+                        <span class="mv-quote mv-quote--alt">"</span>
+                        <h2>Nuestra Visión</h2>
+                        <p>Ser la herramienta de referencia del agricultor de limón colombiano, donde cada temporada quede documentada y cada decisión de campo esté respaldada por datos reales.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="obj" id="objetivos">
+            <div class="container">
+                <p class="obj-eyebrow reveal">Propósito del proyecto</p>
+                <h2 class="obj-title reveal reveal-d1">Una herramienta hecha para el <em>campo</em></h2>
+
+                <div class="obj-general reveal reveal-d2">
+                    <div class="obj-accent-line"></div>
+                    <div>
+                        <p class="obj-gen-tag">Objetivo general</p>
+                        <p class="obj-gen-text">Desarrollar una aplicación web que permita a los agricultores de limón registrar sus labores de campo, calcular automáticamente las próximas fechas y llevar el control de cosecha con historial consultable.</p>
+                    </div>
+                </div>
+
+                <div class="obj-divider reveal reveal-d3">
+                    <span>Objetivos específicos</span>
+                </div>
+
+                <div class="obj-specific">
+                    <div class="obj-item reveal">
+                        <span class="obj-num">01</span>
+                        <div>
+                            <p class="obj-cat">Registro</p>
+                            <p class="obj-text">Permitir el registro de riego, fertilización y fumigación indicando fecha de inicio y cada cuántos días se repite la labor.</p>
+                        </div>
+                    </div>
+                    <div class="obj-item reveal reveal-d1">
+                        <span class="obj-num">02</span>
+                        <div>
+                            <p class="obj-cat">Automatización</p>
+                            <p class="obj-text">Calcular automáticamente la próxima fecha de cada actividad a partir de la frecuencia configurada por el agricultor.</p>
+                        </div>
+                    </div>
+                    <div class="obj-item reveal reveal-d2">
+                        <span class="obj-num">03</span>
+                        <div>
+                            <p class="obj-cat">Alertas</p>
+                            <p class="obj-text">Mostrar alertas en pantalla cuando una tarea deba realizarse ese mismo día o al siguiente, para que nada se pase por alto.</p>
+                        </div>
+                    </div>
+                    <div class="obj-item reveal reveal-d3">
+                        <span class="obj-num">04</span>
+                        <div>
+                            <p class="obj-cat">Cosecha</p>
+                            <p class="obj-text">Registrar la cantidad recolectada por fecha y ofrecer un historial de cosechas consultable en cualquier momento.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tech" id="tecnologias">
+            <div class="container">
+                <div class="tech-header reveal">
+                    <p class="tech-eyebrow">Stack tecnológico</p>
+                    <h2 class="tech-title">Tres herramientas,<br><em>un solo flujo de trabajo</em></h2>
+                </div>
+                <div class="tech-grid">
+                    <div class="tech-item reveal">
+                        <div class="tech-badge tech-badge--python">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+                                 alt="" width="40" height="40" aria-hidden="true">
+                        </div>
+                        <p class="tech-layer">Capa de lenguaje</p>
+                        <h3 class="tech-name">Python</h3>
+                        <p class="tech-desc">Potencia toda la lógica del sistema: cálculo de fechas, procesamiento de registros de campo y automatización de alertas de cultivo.</p>
+                        <ul class="tech-tags">
+                            <li>Lenguaje base</li>
+                            <li>Lógica de negocio</li>
+                        </ul>
+                    </div>
+                    <div class="tech-item reveal reveal-d1">
+                        <div class="tech-badge tech-badge--flask">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg"
+                                 alt="" width="40" height="40" aria-hidden="true">
+                        </div>
+                        <p class="tech-layer">Capa de aplicación</p>
+                        <h3 class="tech-name">Flask</h3>
+                        <p class="tech-desc">Gestiona rutas, lógica del servidor y renderiza las vistas con plantillas Jinja2. Un solo framework para frontend y backend.</p>
+                        <ul class="tech-tags">
+                            <li>Backend (rutas & API)</li>
+                            <li>Frontend (Jinja2)</li>
+                        </ul>
+                    </div>
+                    <div class="tech-item reveal reveal-d2">
+                        <div class="tech-badge tech-badge--mysql">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+                                 alt="" width="40" height="40" aria-hidden="true">
+                        </div>
+                        <p class="tech-layer">Capa de datos</p>
+                        <h3 class="tech-name">MySQL</h3>
+                        <p class="tech-desc">Almacena labores, fechas y cosechas con integridad relacional, garantizando un historial consultable y confiable en todo momento.</p>
+                        <ul class="tech-tags">
+                            <li>Base de datos</li>
+                            <li>Historial de labores</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
+
+    <footer class="footer" id="contacto">
+        <div class="container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="/" aria-label="Inicio AgroCítrico">
+                        <img src="{{ url_for('static', filename='img/agrocitrico_logo.svg') }}" alt="AgroCítrico" class="footer-logo">
+                    </a>
+                    <p class="footer-tagline">Digitalizar el campo para que cada agricultor trabaje con información, no con suposiciones.</p>
+                </div>
+
+                <nav class="footer-nav" aria-label="Navegación del pie de página">
+                    <p class="footer-nav-label">Navegación</p>
+                    <ul>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#mision-vision">Misión y visión</a></li>
+                        <li><a href="#objetivos">Objetivos</a></li>
+                        <li><a href="#tecnologias">Tecnologías</a></li>
+                    </ul>
+                </nav>
+
+                <div class="footer-project">
+                    <p class="footer-nav-label">Proyecto</p>
+                    <p class="footer-project-name">Diplomado</p>
+                    <span class="footer-badge">Proyecto académico</span>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 AgroCítrico. Todos los derechos reservados.</p>
+                <p>Hecho con dedicación para el agricultor colombiano.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="{{ url_for('static', filename='index.js') }}" defer></script>
 </body>
 </html>
