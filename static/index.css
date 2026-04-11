@@ -778,6 +778,129 @@ body {
     }
 }
 
+/* ── Sensores ────────────────────────────────────── */
+.sensors {
+    padding: 96px 0;
+    background-color: #1C3D20;
+}
+
+.sensors-header {
+    margin-bottom: 56px;
+}
+
+.sensors-eyebrow {
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--yellow-500);
+    margin-bottom: 14px;
+}
+
+.sensors-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.1;
+    color: #fff;
+}
+
+.sensors-title em {
+    font-style: italic;
+    color: var(--yellow-500);
+}
+
+.sensors-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.sensor-card {
+    background-color: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.sensor-card-photo {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    background-color: #d4e6d6;
+    flex-shrink: 0;
+}
+
+.sensor-card-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.sensor-card:hover .sensor-card-photo img {
+    transform: scale(1.04);
+}
+
+.sensor-card-body {
+    padding: 28px 28px 32px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.sensor-layer {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-600);
+    margin-bottom: 8px;
+}
+
+.sensor-name {
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 14px;
+}
+
+.sensor-desc {
+    font-size: 0.93rem;
+    line-height: 1.7;
+    color: #5a5a55;
+    flex: 1;
+    margin-bottom: 24px;
+}
+
+.sensor-tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.sensor-tags li {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #1B5E20;
+    background-color: #E8F5E9;
+    border: 1px solid #C8E6C9;
+    padding: 4px 12px;
+    border-radius: 99px;
+}
+
+@media (max-width: 760px) {
+    .sensors { padding: 56px 0; }
+
+    .sensors-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
 /* ── Footer ──────────────────────────────────────── */
 .footer {
     background-color: #111D12;

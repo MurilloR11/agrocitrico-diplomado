@@ -21,6 +21,7 @@
                     <li><a href="#mision-vision">Misión y visión</a></li>
                     <li><a href="#objetivos">Objetivos</a></li>
                     <li><a href="#tecnologias">Tecnologías</a></li>
+                    <li><a href="#sensores">Sensores</a></li>
                 </ul>
                 <a class="cta" href="#registro">Registrate</a>
             </nav>
@@ -218,6 +219,62 @@
         </section>
     </main>
 
+        <section class="sensors" id="sensores">
+            <div class="container">
+                <div class="sensors-header reveal">
+                    <p class="sensors-eyebrow">Hardware IoT</p>
+                    <h2 class="sensors-title">Sensores en el <em>campo</em></h2>
+                </div>
+                <div class="sensors-grid">
+                    <div class="sensor-card reveal">
+                        <div class="sensor-card-photo">
+                            <img src="{{ url_for('static', filename='img/sensor-dht11.jpg') }}"
+                                 alt="Sensor DHT11 de temperatura y humedad">
+                        </div>
+                        <div class="sensor-card-body">
+                            <p class="sensor-layer">Sensor ambiental</p>
+                            <h3 class="sensor-name">Sensor de temperatura<br>y humedad</h3>
+                            <p class="sensor-desc">El DHT11 registra la temperatura y la humedad relativa del ambiente del cultivo, detectando condiciones adversas antes de que afecten la producción.</p>
+                            <ul class="sensor-tags">
+                                <li>DHT11</li>
+                                <li>Ambiente</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sensor-card reveal reveal-d1">
+                        <div class="sensor-card-photo">
+                            <img src="{{ url_for('static', filename='img/sensor-temperatura.jpg') }}"
+                                 alt="Medición de temperatura con DHT11">
+                        </div>
+                        <div class="sensor-card-body">
+                            <p class="sensor-layer">Variable medida</p>
+                            <h3 class="sensor-name">Temperatura<br>DHT11</h3>
+                            <p class="sensor-desc">Monitorea la temperatura en grados Celsius en tiempo real para que el agricultor actúe con anticipación ante cambios climáticos que comprometan el cultivo.</p>
+                            <ul class="sensor-tags">
+                                <li>DHT11</li>
+                                <li>°C</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="sensor-card reveal reveal-d2">
+                        <div class="sensor-card-photo">
+                            <img src="{{ url_for('static', filename='img/sensor-yl69.jpg') }}"
+                                 alt="Sensor de humedad de suelo YL69">
+                        </div>
+                        <div class="sensor-card-body">
+                            <p class="sensor-layer">Sensor de suelo</p>
+                            <h3 class="sensor-name">Humedad<br>YL69</h3>
+                            <p class="sensor-desc">El YL69 mide la humedad del suelo por conductividad eléctrica, indicando cuándo el cultivo requiere riego para evitar estrés hídrico en las raíces.</p>
+                            <ul class="sensor-tags">
+                                <li>YL69</li>
+                                <li>Suelo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     <footer class="footer" id="contacto">
         <div class="container">
             <div class="footer-main">
@@ -235,6 +292,7 @@
                         <li><a href="#mision-vision">Misión y visión</a></li>
                         <li><a href="#objetivos">Objetivos</a></li>
                         <li><a href="#tecnologias">Tecnologías</a></li>
+                        <li><a href="#sensores">Sensores</a></li>
                     </ul>
                 </nav>
 
