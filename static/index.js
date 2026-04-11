@@ -1,3 +1,33 @@
+// ── Hamburger menu ─────────────────────────────
+const toggle = document.querySelector('.nav-toggle');
+const navMenu = document.querySelector('.nav-links');
+
+function openMenu() {
+    toggle.classList.add('is-open');
+    navMenu.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
+}
+
+function closeMenu() {
+    toggle.classList.remove('is-open');
+    navMenu.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+}
+
+toggle.addEventListener('click', () => {
+    navMenu.classList.contains('is-open') ? closeMenu() : openMenu();
+});
+
+// Cierra el menú al hacer clic en cualquier enlace
+navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+});
+
+// Cierra el menú al cambiar a desktop
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 900) closeMenu();
+});
+
 // ── Scroll spy (nav activo por sección) ───────
 const navLinks = document.querySelectorAll('.nav-links a');
 const sections = document.querySelectorAll('section[id]');
