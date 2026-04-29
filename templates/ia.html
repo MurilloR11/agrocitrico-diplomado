@@ -1,0 +1,118 @@
+{# templates/ia.html #}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asistente IA — AgroCítrico</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia.css') }}">
+</head>
+<body>
+
+<header class="ia-topbar">
+    <div class="ia-topbar-left">
+        <a href="{{ url_for('index') }}" aria-label="Ir al inicio">
+            <img src="{{ url_for('static', filename='img/agrocitrico_logo.svg') }}" alt="AgroCítrico" class="ia-logo">
+        </a>
+        <div class="ia-topbar-divider" aria-hidden="true"></div>
+        <div class="ia-topbar-title">
+            <span>Asistente IA</span>
+            <div class="ia-status" aria-label="Estado: en línea">
+                <div class="ia-status-dot" aria-hidden="true"></div>
+                En línea
+            </div>
+        </div>
+    </div>
+    <a class="ia-topbar-back" href="{{ url_for('index') }}">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Volver al inicio
+    </a>
+</header>
+
+<div class="ia-layout">
+
+    <aside class="ia-sidebar">
+        <div class="ia-sidebar-header">
+            <button class="ia-new-chat" id="btn-new-chat" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Nueva conversación
+            </button>
+        </div>
+        <div class="ia-sidebar-section">
+            <p class="ia-sidebar-label">Recientes</p>
+        </div>
+        <ul class="ia-history">
+            <li class="is-active">
+                <a href="#">
+                    <svg class="ia-history-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    Plagas en limoneros
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <svg class="ia-history-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    Frecuencia de riego
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <svg class="ia-history-icon" xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    Época de cosecha
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="ia-chat">
+
+        <!-- Estado vacío -->
+        <div class="ia-empty" id="ia-empty">
+            <div class="ia-empty-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <h2>¿En qué te puedo ayudar?</h2>
+            <p>Hazme preguntas sobre el manejo de tu cultivo de limón, plagas, riego, fertilización o cosecha.</p>
+            <div class="ia-empty-chips">
+                <button class="ia-suggestion" type="button" data-prompt="¿Cuándo debo fumigar mis limoneros?">¿Cuándo fumigar limoneros?</button>
+                <button class="ia-suggestion" type="button" data-prompt="¿Cómo detectar plagas en cítricos?">Detectar plagas en cítricos</button>
+                <button class="ia-suggestion" type="button" data-prompt="¿Cada cuánto se riega el limón?">Frecuencia de riego del limón</button>
+                <button class="ia-suggestion" type="button" data-prompt="¿Qué fertilizante usar para limoneros?">Fertilizante para limoneros</button>
+            </div>
+        </div>
+
+        <!-- Mensajes (oculto hasta el primer envío) -->
+        <div class="ia-messages" id="ia-messages" hidden aria-live="polite" aria-label="Conversación"></div>
+
+        <!-- Sugerencias rápidas (se muestran al chatear) -->
+        <div class="ia-suggestions" id="ia-suggestions" hidden>
+            <button class="ia-suggestion" type="button" data-prompt="¿Cuándo debo fumigar mis limoneros?">¿Cuándo fumigar?</button>
+            <button class="ia-suggestion" type="button" data-prompt="¿Cómo detectar plagas en cítricos?">Detectar plagas</button>
+            <button class="ia-suggestion" type="button" data-prompt="¿Cada cuánto se riega el limón?">Frecuencia de riego</button>
+        </div>
+
+        <!-- Input -->
+        <div class="ia-inputbar">
+            <div class="ia-input-wrapper">
+                <textarea
+                    class="ia-textarea"
+                    id="ia-textarea"
+                    placeholder="Escribe tu pregunta sobre el cultivo…"
+                    rows="1"
+                    aria-label="Escribe tu mensaje"
+                ></textarea>
+                <button class="ia-send" id="ia-send" type="button" aria-label="Enviar mensaje" disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+            </div>
+            <p class="ia-input-hint">El asistente puede cometer errores. Verifica información importante.</p>
+        </div>
+
+    </main>
+</div>
+
+<script src="{{ url_for('static', filename='js/ia.js') }}" defer></script>
+</body>
+</html>

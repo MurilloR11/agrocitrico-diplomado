@@ -14,6 +14,10 @@ def login():
 def register():
     return render_template("register.html")
 
+@app.route("/ia")
+def ia():
+    return render_template("ia.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
 
