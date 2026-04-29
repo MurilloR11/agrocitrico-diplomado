@@ -192,6 +192,32 @@ body {
     line-height: 1.5;
 }
 
+/* ── Enlace volver ─────────────────────────────────── */
+.auth-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #ADADAD;
+    text-decoration: none;
+    margin-bottom: 32px;
+    transition: color 0.2s ease;
+}
+
+.auth-back svg {
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+}
+
+.auth-back:hover {
+    color: var(--green-700);
+}
+
+.auth-back:hover svg {
+    transform: translateX(-3px);
+}
+
 /* ── Formulario ────────────────────────────────────── */
 .auth-form {
     display: flex;
