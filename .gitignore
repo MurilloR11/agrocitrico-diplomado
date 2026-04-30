@@ -2,11 +2,17 @@
 venv/
 .venv/
 env/
+ENV/
 
 # Python cache and bytecode
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
 
 # Build/distribution artifacts
 build/
@@ -16,11 +22,36 @@ dist/
 # Environment and local config
 .env
 .env.*
+!.env.example
+instance/
 
 # IDE/editor folders
 .vscode/
 .idea/
+.codex
+.codex/
 
 # OS files
 .DS_Store
 Thumbs.db
+
+# Logs and local runtime files
+*.log
+*.pid
+*.sqlite
+*.sqlite3
+
+# Local database backups and exports
+*.sql
+*.dump
+
+# Local AI models and large generated assets
+*.gguf
+*.ggml
+*.bin
+models/
+gpt4all/
+
+# Flask and migration cache
+.flaskenv
+migrations/**/__pycache__/

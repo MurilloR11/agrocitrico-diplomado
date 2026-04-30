@@ -1,0 +1,495 @@
+/* static/css/dashboard.css */
+
+:root {
+    --green-800: #173d22;
+    --green-700: #245c31;
+    --green-600: #2f7d42;
+    --yellow-500: #f6d94a;
+    --amber-500: #e7a336;
+    --blue-500: #4b7bec;
+    --mint-100: #edf7ef;
+    --paper: #ffffff;
+    --panel: #f6f8f3;
+    --line: #dfe6dc;
+    --muted: #68736a;
+    --text: #1d261f;
+    --danger: #b43b38;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Montserrat', sans-serif;
+    background: var(--panel);
+    color: var(--text);
+}
+
+a {
+    color: inherit;
+}
+
+button {
+    font: inherit;
+}
+
+.dash-shell {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+}
+
+.dash-sidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    background: var(--green-800);
+    color: #fff;
+    padding: 28px 20px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.dash-brand {
+    display: block;
+    padding: 4px 6px 28px;
+}
+
+.dash-brand img {
+    width: 178px;
+    height: auto;
+    display: block;
+}
+
+.dash-nav {
+    display: grid;
+    gap: 8px;
+}
+
+.dash-nav-link,
+.dash-logout button {
+    width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 8px;
+    border: 0;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.72);
+    background: transparent;
+    padding: 0 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dash-nav-link:hover,
+.dash-logout button:hover,
+.dash-nav-link.is-active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.dash-nav-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.11);
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.dash-logout {
+    margin-top: auto;
+    padding-top: 24px;
+}
+
+.dash-logout button {
+    color: #ffd8d6;
+}
+
+.dash-main {
+    min-width: 0;
+    padding: 32px;
+}
+
+.dash-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 26px;
+}
+
+.dash-kicker {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green-600);
+    margin-bottom: 8px;
+}
+
+.dash-header h1 {
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--green-800);
+    margin-bottom: 8px;
+}
+
+.dash-subtitle {
+    max-width: 58ch;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--muted);
+}
+
+.dash-weather {
+    min-width: 176px;
+    min-height: 82px;
+    border-radius: 8px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    display: grid;
+    align-content: center;
+    gap: 4px;
+    padding: 16px;
+    box-shadow: 0 8px 24px rgba(31, 50, 35, 0.06);
+}
+
+.dash-weather span {
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: var(--green-700);
+}
+
+.dash-weather strong {
+    font-size: 0.78rem;
+    color: var(--muted);
+}
+
+.dash-grid {
+    display: grid;
+    gap: 16px;
+}
+
+.dash-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-bottom: 16px;
+}
+
+.dash-card {
+    border-radius: 8px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    box-shadow: 0 10px 30px rgba(31, 50, 35, 0.06);
+}
+
+.stat-card {
+    min-height: 150px;
+    padding: 20px;
+    display: grid;
+    align-content: space-between;
+    gap: 12px;
+}
+
+.stat-card p {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.stat-card strong {
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--green-800);
+}
+
+.stat-card span {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--muted);
+}
+
+.dash-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.65fr);
+    grid-template-areas:
+        "crop tasks"
+        "sensors harvest";
+    gap: 16px;
+}
+
+.crop-card {
+    grid-area: crop;
+    min-height: 318px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 230px;
+    gap: 20px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ffffff 0%, #f2f8ee 100%);
+}
+
+.crop-copy {
+    padding: 28px;
+    align-self: center;
+}
+
+.crop-copy h2,
+.card-head h2 {
+    font-size: 1.2rem;
+    line-height: 1.25;
+    color: var(--green-800);
+}
+
+.crop-copy p:last-child {
+    margin-top: 12px;
+    max-width: 46ch;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+}
+
+.crop-card img {
+    align-self: end;
+    width: 230px;
+    max-height: 300px;
+    object-fit: contain;
+    margin-right: 12px;
+}
+
+.tasks-card {
+    grid-area: tasks;
+}
+
+.sensors-card {
+    grid-area: sensors;
+}
+
+.harvest-card {
+    grid-area: harvest;
+}
+
+.tasks-card,
+.sensors-card,
+.harvest-card {
+    padding: 22px;
+}
+
+.card-head {
+    min-height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.card-head a,
+.card-head span {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--green-700);
+    text-decoration: none;
+}
+
+.task-list,
+.sensor-list {
+    display: grid;
+    gap: 14px;
+}
+
+.task-row,
+.sensor-row {
+    min-height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+}
+
+.task-row:last-child,
+.sensor-row:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
+.task-row strong,
+.sensor-row strong {
+    display: block;
+    font-size: 0.93rem;
+    color: var(--text);
+    margin-bottom: 5px;
+}
+
+.task-row span,
+.sensor-row span {
+    font-size: 0.78rem;
+    color: var(--muted);
+}
+
+.task-row p,
+.sensor-row p {
+    flex: 0 0 auto;
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--green-800);
+    background: var(--mint-100);
+    border: 1px solid #cfe5d3;
+    border-radius: 8px;
+    padding: 7px 10px;
+}
+
+.sensor-row:nth-child(1) p {
+    color: #7a4d06;
+    background: #fff5da;
+    border-color: #f2db9d;
+}
+
+.sensor-row:nth-child(2) p {
+    color: #294f9a;
+    background: #edf3ff;
+    border-color: #cfdbf5;
+}
+
+.harvest-card {
+    display: grid;
+    align-content: start;
+}
+
+.harvest-meter {
+    height: 14px;
+    border-radius: 8px;
+    background: #ecf0e9;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    margin: 6px 0 14px;
+}
+
+.harvest-meter div {
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, var(--green-600), var(--yellow-500));
+    transition: width 0.8s ease;
+}
+
+.harvest-card p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.55;
+}
+
+@media (max-width: 1080px) {
+    .dash-shell {
+        grid-template-columns: 220px minmax(0, 1fr);
+    }
+
+    .dash-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .dash-content {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "crop"
+            "tasks"
+            "sensors"
+            "harvest";
+    }
+}
+
+@media (max-width: 760px) {
+    .dash-shell {
+        display: block;
+    }
+
+    .dash-sidebar {
+        position: static;
+        height: auto;
+        padding: 18px;
+    }
+
+    .dash-brand {
+        padding-bottom: 18px;
+    }
+
+    .dash-nav {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .dash-nav-link {
+        justify-content: center;
+        min-width: 0;
+        padding: 0 8px;
+    }
+
+    .dash-logout {
+        padding-top: 14px;
+    }
+
+    .dash-main {
+        padding: 22px 16px;
+    }
+
+    .dash-header {
+        display: grid;
+    }
+
+    .dash-weather {
+        width: 100%;
+    }
+
+    .crop-card {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+
+    .crop-card img {
+        justify-self: end;
+        width: 190px;
+    }
+}
+
+@media (max-width: 520px) {
+    .dash-nav {
+        grid-template-columns: 1fr;
+    }
+
+    .dash-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .card-head,
+    .task-row,
+    .sensor-row {
+        align-items: flex-start;
+    }
+
+    .task-row,
+    .sensor-row {
+        display: grid;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dash-nav-link,
+    .dash-logout button,
+    .harvest-meter div {
+        transition: none;
+    }
+}

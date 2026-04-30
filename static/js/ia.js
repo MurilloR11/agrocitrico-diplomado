@@ -7,8 +7,9 @@
     const textarea   = document.getElementById('ia-textarea');
     const sendBtn    = document.getElementById('ia-send');
     const newChatBtn = document.getElementById('btn-new-chat');
+    const endpoint   = window.AGROCITRICO_IA_ENDPOINT || '/ia/chat';
 
-    const BOT_REPLY = 'Esta es una vista de demostración visual. La integración con el modelo de IA estará disponible próximamente.';
+    let isSending = false;
 
     function switchToChat() {
         emptyEl.hidden    = true;
@@ -27,10 +28,21 @@
         const isBot = role === 'bot';
         const msg   = document.createElement('div');
         msg.className = `ia-msg ia-msg--${isBot ? 'bot' : 'user'}`;
-        msg.innerHTML = `
-            <div class="ia-avatar ia-avatar--${isBot ? 'bot' : 'user'}" aria-hidden="true">${isBot ? 'IA' : 'Tú'}</div>
-            <div class="ia-bubble"><p>${text}</p></div>
-        `;
+
+        const avatar = document.createElement('div');
+        avatar.className = `ia-avatar ia-avatar--${isBot ? 'bot' : 'user'}`;
+        avatar.setAttribute('aria-hidden', 'true');
+        avatar.textContent = isBot ? 'IA' : 'Tú';
+
+        const bubble = document.createElement('div');
+        bubble.className = 'ia-bubble';
+
+        const paragraph = document.createElement('p');
+        paragraph.textContent = text;
+
+        bubble.appendChild(paragraph);
+        msg.appendChild(avatar);
+        msg.appendChild(bubble);
         messagesEl.appendChild(msg);
         messagesEl.scrollTop = messagesEl.scrollHeight;
     }
@@ -54,10 +66,11 @@
         if (el) el.remove();
     }
 
-    function send(text) {
+    async function send(text) {
         const trimmed = text.trim();
-        if (!trimmed) return;
+        if (!trimmed || isSending) return;
 
+        isSending = true;
         switchToChat();
         appendMessage(trimmed, 'user');
         textarea.value = '';
@@ -65,10 +78,29 @@
         sendBtn.disabled = true;
 
         showTyping();
-        setTimeout(function () {
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: trimmed })
+            });
+            const data = await response.json();
+
             hideTyping();
-            appendMessage(BOT_REPLY, 'bot');
-        }, 1400);
+            if (!response.ok) {
+                appendMessage(data.error || 'No se pudo generar la respuesta.', 'bot');
+                return;
+            }
+            appendMessage(data.reply || 'No se recibio respuesta del modelo.', 'bot');
+        } catch (error) {
+            hideTyping();
+            appendMessage('No se pudo conectar con el asistente de IA.', 'bot');
+        } finally {
+            isSending = false;
+            sendBtn.disabled = textarea.value.trim() === '';
+        }
     }
 
     textarea.addEventListener('input', function () {

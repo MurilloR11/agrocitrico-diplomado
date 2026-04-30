@@ -1,0 +1,129 @@
+{# templates/dashboard.html #}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — AgroCítrico</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+<body>
+
+<div class="dash-shell">
+    <aside class="dash-sidebar" aria-label="Panel principal">
+        <a class="dash-brand" href="{{ url_for('dashboard') }}" aria-label="Dashboard AgroCítrico">
+            <img src="{{ url_for('static', filename='img/agrocitrico_logo.svg') }}" alt="AgroCítrico">
+        </a>
+
+        <nav class="dash-nav" aria-label="Navegación del dashboard">
+            <a class="dash-nav-link is-active" href="{{ url_for('dashboard') }}">
+                <span class="dash-nav-icon" aria-hidden="true">⌂</span>
+                Panel
+            </a>
+            <a class="dash-nav-link" href="{{ url_for('ia') }}">
+                <span class="dash-nav-icon" aria-hidden="true">IA</span>
+                Asistente
+            </a>
+            <a class="dash-nav-link" href="{{ url_for('index') }}">
+                <span class="dash-nav-icon" aria-hidden="true">↗</span>
+                Sitio
+            </a>
+        </nav>
+
+        <form action="{{ url_for('logout') }}" method="post" class="dash-logout">
+            <button type="submit">
+                <span aria-hidden="true">↩</span>
+                Cerrar sesión
+            </button>
+        </form>
+    </aside>
+
+    <main class="dash-main">
+        <header class="dash-header">
+            <div>
+                <p class="dash-kicker">Gestión del cultivo</p>
+                <h1>Hola, {{ user.fullname }}</h1>
+                <p class="dash-subtitle">Resumen operativo de labores, alertas y sensores del limonar.</p>
+            </div>
+            <div class="dash-weather" aria-label="Estado ambiental">
+                <span>27 C</span>
+                <strong>Clima estable</strong>
+            </div>
+        </header>
+
+        <section class="dash-grid dash-stats" aria-label="Indicadores principales">
+            {% for item in stats %}
+            <article class="dash-card stat-card">
+                <p>{{ item.label }}</p>
+                <strong>{{ item.value }}</strong>
+                <span>{{ item.detail }}</span>
+            </article>
+            {% endfor %}
+        </section>
+
+        <section class="dash-content">
+            <article class="dash-card crop-card">
+                <div class="crop-copy">
+                    <p class="dash-kicker">Estado del cultivo</p>
+                    <h2>Limonar en seguimiento activo</h2>
+                    <p>Las próximas labores priorizan humedad, nutrición y control preventivo de plagas.</p>
+                </div>
+                <img src="{{ url_for('static', filename='img/campesino.png') }}" alt="Agricultor revisando el cultivo">
+            </article>
+
+            <article class="dash-card tasks-card">
+                <div class="card-head">
+                    <h2>Agenda de labores</h2>
+                    <a href="{{ url_for('ia') }}">Consultar IA</a>
+                </div>
+                <div class="task-list">
+                    {% for task in tasks %}
+                    <div class="task-row">
+                        <div>
+                            <strong>{{ task.name }}</strong>
+                            <span>{{ task.date }}</span>
+                        </div>
+                        <p>{{ task.status }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </article>
+
+            <article class="dash-card sensors-card">
+                <div class="card-head">
+                    <h2>Sensores IoT</h2>
+                    <span>En línea</span>
+                </div>
+                <div class="sensor-list">
+                    {% for sensor in sensors %}
+                    <div class="sensor-row">
+                        <div>
+                            <strong>{{ sensor.name }}</strong>
+                            <span>{{ sensor.trend }}</span>
+                        </div>
+                        <p>{{ sensor.value }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </article>
+
+            <article class="dash-card harvest-card">
+                <div class="card-head">
+                    <h2>Cosecha</h2>
+                    <span>Semana actual</span>
+                </div>
+                <div class="harvest-meter" data-progress="72">
+                    <div></div>
+                </div>
+                <p>72% de avance frente a la meta semanal de recolección.</p>
+            </article>
+        </section>
+    </main>
+</div>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}" defer></script>
+</body>
+</html>

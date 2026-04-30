@@ -1,158 +1,191 @@
 # AgroCítrico
 
-Plataforma web de gestión agrícola digital dirigida a agricultores de limón. Permite registrar, planificar y consultar las labores de campo (riego, fertilización, fumigación y cosecha) reemplazando el cuaderno de notas por alertas y registros digitales.
+AgroCítrico es una plataforma web académica para la gestión agrícola de cultivos de limón. Permite mostrar información del proyecto, registrar usuarios, iniciar sesión, acceder a un dashboard protegido y consultar un asistente de IA local con GPT4All.
 
-Proyecto académico desarrollado como parte de un Diplomado.
+## Funcionalidades actuales
 
----
-
-## ¿Qué hace el proyecto?
-
-- **Registro de labores**: el agricultor ingresa la fecha de inicio y la frecuencia (cada cuántos días) de cada labor de campo.
-- **Cálculo automático de fechas**: el sistema calcula la próxima fecha de cada actividad sin intervención manual.
-- **Alertas**: muestra avisos cuando una tarea debe realizarse el mismo día o al día siguiente.
-- **Control de cosecha**: registra la cantidad recolectada por fecha y mantiene un historial consultable.
-- **Monitoreo con sensores IoT**: integra lecturas de sensores de temperatura, humedad ambiental y humedad del suelo para apoyar la toma de decisiones en campo.
-
----
+- Homepage informativa con secciones de objetivos, tecnologías, sensores y contexto del proyecto.
+- Registro de usuarios con validación del lado cliente y servidor.
+- Login con contraseñas protegidas mediante hash.
+- Middleware de sesión:
+  - Usuarios sin sesión no pueden acceder a `/dashboard`.
+  - Usuarios logueados no pueden volver a `/login` ni `/register`.
+- Dashboard privado con resumen de labores, alertas, sensores IoT y cosecha.
+- Asistente IA en `/ia` conectado a GPT4All.
+- Migraciones de base de datos con Flask-Migrate/Alembic.
 
 ## Stack tecnológico
 
-### Backend
-
-| Tecnología | Versión | Uso |
-|---|---|---|
-| Python | 3.x | Lenguaje base, lógica de negocio y cálculo de fechas |
-| Flask | Latest | Framework web: rutas, servidor y renderizado de vistas |
-| Jinja2 | (incluido con Flask) | Motor de plantillas para las vistas HTML |
-| MySQL | 8.x | Base de datos relacional para labores, fechas y cosechas |
-
-### Frontend
-
-| Tecnología | Uso |
+| Capa | Tecnología |
 |---|---|
-| HTML5 | Estructura semántica de las vistas |
-| CSS3 | Estilos personalizados sin ningún framework externo |
-| JavaScript (ES6+) | Interactividad: hamburger menu, scroll spy, scroll reveal, contadores animados |
-
-### APIs y CDNs externos
-
-| Recurso | Uso |
-|---|---|
-| Google Fonts — Montserrat | Tipografía principal del sitio (pesos 400, 500, 600, 700) |
-| devicons CDN (jsDelivr) | Iconos SVG de Python, Flask y MySQL en la sección Tecnologías |
-| Unsplash | Imágenes fotográficas de contexto agrícola en las secciones Nosotros y Misión/Visión |
-
----
-
-## Hardware / Sensores IoT
-
-| Sensor | Variable medida | Descripción |
-|---|---|---|
-| DHT11 | Temperatura y humedad relativa | Sensor ambiental que registra condiciones climáticas del cultivo |
-| DHT11 — Temperatura | °C | Lectura de temperatura en tiempo real para detectar cambios adversos |
-| YL69 | Humedad del suelo | Sensor de conductividad eléctrica que indica cuándo regar |
-
----
+| Backend | Python 3, Flask, Flask-SQLAlchemy, Flask-Migrate |
+| Base de datos | MySQL, PyMySQL |
+| Frontend | HTML5, Jinja2, CSS3, JavaScript |
+| IA local | GPT4All con `Meta-Llama-3-8B-Instruct.Q4_0.gguf` |
 
 ## Estructura del proyecto
 
-```
+```text
 agrocitrico-diplomado/
-├── app.py                  # Punto de entrada de Flask y definición de rutas
+├── app.py                         # App principal, rutas, modelos y middleware
+├── requirements.txt               # Dependencias Python
+├── migrations/                    # Configuración y versiones de Flask-Migrate
+│   └── versions/
+│       └── d1ba8446358a_create_users_table.py
 ├── templates/
-│   └── index.html          # Vista principal (homepage)
-├── static/
-│   ├── index.css           # Hoja de estilos principal
-│   ├── index.js            # JavaScript del sitio
-│   └── img/
-│       ├── agrocitrico_logo.svg    # Logotipo del proyecto
-│       ├── campesino.png           # Ilustración del agricultor (hero)
-│       ├── sensor-dht11.jpg        # Foto del sensor DHT11
-│       ├── sensor-temperatura.jpg  # Foto de la medición de temperatura
-│       └── sensor-yl69.jpg         # Foto del sensor YL69
-└── README.md
+│   ├── index.html                 # Homepage
+│   ├── login.html                 # Inicio de sesión
+│   ├── register.html              # Registro de usuarios
+│   ├── dashboard.html             # Panel privado
+│   └── ia.html                    # Asistente IA
+└── static/
+    ├── index.css
+    ├── index.js
+    ├── css/                       # Estilos por pantalla
+    ├── js/                        # Scripts por pantalla
+    └── img/                       # Logo e imágenes del proyecto
 ```
 
----
+## Configuración en otro equipo
 
-## Secciones de la homepage
-
-| Sección | ID | Descripción |
-|---|---|---|
-| Hero | `#inicio` | Presentación principal con llamada a la acción |
-| Nosotros | `#nosotros` | Descripción de AgroCítrico y estadísticas clave |
-| Misión y Visión | `#mision-vision` | Propósito y proyección del proyecto |
-| Objetivos | `#objetivos` | Objetivo general y cuatro objetivos específicos |
-| Tecnologías | `#tecnologias` | Stack de software: Python, Flask y MySQL |
-| Sensores | `#sensores` | Hardware IoT: DHT11 y YL69 |
-
----
-
-## Funcionalidades del frontend
-
-- **Hamburger menu**: navegación adaptada a móvil con animación de apertura/cierre.
-- **Scroll spy**: el enlace activo del nav se actualiza automáticamente según la sección visible.
-- **Scroll reveal**: los elementos entran con animación al hacerse visibles en pantalla.
-- **Contadores animados**: los números de estadísticas (3 labores, 24h, 100%) se animan al aparecer.
-- **Diseño responsive**: adaptado a desktop, tablet y móvil sin ningún framework CSS externo.
-
----
-
-## Cómo ejecutar el proyecto
-
-**1. Clonar o descargar el repositorio**
-
-**2. Crear y activar el entorno virtual**
+1. Clonar el repositorio:
 
 ```bash
-python -m venv venv
+git clone <URL_DEL_REPOSITORIO>
+cd agrocitrico-diplomado
+```
 
-# Windows
-venv\Scripts\activate
+2. Crear y activar el entorno virtual:
 
-# macOS / Linux
+```bash
+python3 -m venv venv
 source venv/bin/activate
 ```
 
-**3. Instalar dependencias**
+En Windows:
 
 ```bash
-pip install flask
+python -m venv venv
+venv\Scripts\activate
 ```
 
-**4. Ejecutar la aplicación**
+3. Instalar dependencias:
+
+```bash
+pip install -r requirements.txt
+```
+
+4. Crear la base de datos MySQL vacía:
+
+```sql
+CREATE DATABASE agrocitrico CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+5. Configurar conexión a MySQL.
+
+Por defecto la app intenta conectar a:
+
+```text
+mysql+pymysql://root@localhost:3306/agrocitrico
+```
+
+Si tu MySQL usa otro usuario o contraseña, exporta variables antes de migrar o ejecutar:
+
+```bash
+export MYSQL_USER="root"
+export MYSQL_PASSWORD="tu_password"
+export MYSQL_HOST="localhost"
+export MYSQL_PORT="3306"
+export MYSQL_DATABASE="agrocitrico"
+export SECRET_KEY="cambia-esta-clave"
+```
+
+También puedes usar una URL completa:
+
+```bash
+export DATABASE_URL="mysql+pymysql://usuario:password@localhost:3306/agrocitrico"
+```
+
+## Migraciones de base de datos
+
+Aplicar las migraciones existentes:
+
+```bash
+flask db upgrade
+```
+
+Ver la revisión actual aplicada:
+
+```bash
+flask db current
+```
+
+Crear una nueva migración después de cambiar modelos:
+
+```bash
+flask db migrate -m "descripcion del cambio"
+flask db upgrade
+```
+
+La migración actual crea la tabla `users` con nombre completo, correo único, hash de contraseña y fechas de creación/actualización.
+
+## Ejecutar el proyecto
+
+Con el entorno virtual activo:
 
 ```bash
 python app.py
 ```
 
-**5. Abrir en el navegador**
+Abrir en el navegador:
 
-```
+```text
 http://localhost:5000
 ```
 
----
+Si el puerto 5000 está ocupado:
 
-## Sistema de diseño (CSS)
-
-El CSS usa variables nativas para mantener consistencia visual en todo el sitio:
-
-```css
---green-700: #2E7D32   /* verde oscuro — texto y acentos principales */
---green-600: #388E3C   /* verde — etiquetas y eyebrows */
---green-500: #4CAF50   /* verde medio — decoraciones */
---yellow-500: #F9E04B  /* amarillo — CTA y acentos destacados */
---yellow-600: #E8C820  /* amarillo oscuro — bordes de CTA */
---amber-600:  #F9A825  /* ámbar — etiquetas secundarias */
---line:       #E0E0E0  /* gris — bordes y divisores */
---text:       #1E1E1E  /* texto principal */
---bg:         #FFFFFF  /* fondo base */
+```bash
+flask run --host 127.0.0.1 --port 5001
 ```
 
----
+## Rutas principales
+
+| Ruta | Acceso | Descripción |
+|---|---|---|
+| `/` | Público | Homepage |
+| `/register` | Solo visitantes | Registro |
+| `/login` | Solo visitantes | Inicio de sesión |
+| `/dashboard` | Solo usuarios logueados | Dashboard privado |
+| `/ia` | Público actualmente | Asistente IA |
+| `/ia/chat` | POST | Endpoint del modelo GPT4All |
+| `/logout` | POST | Cierre de sesión |
+
+## Asistente IA
+
+El asistente usa:
+
+```python
+GPT4All("Meta-Llama-3-8B-Instruct.Q4_0.gguf")
+```
+
+La primera consulta puede tardar porque GPT4All descarga o carga un modelo de varios GB. No subas archivos `.gguf` al repositorio; están excluidos por `.gitignore`.
+
+## Comandos útiles
+
+```bash
+venv/bin/python -m py_compile app.py
+venv/bin/flask routes
+venv/bin/flask db current
+```
+
+## Notas de seguridad
+
+- No subas `.env`, contraseñas, dumps de base de datos ni modelos locales.
+- Cambia `SECRET_KEY` en producción.
+- Usa `debug=True` solo en desarrollo local.
+- Las contraseñas se guardan como hash, no en texto plano.
 
 ## Estado del proyecto
 
-Proyecto en desarrollo activo como parte de un Diplomado académico.
+Proyecto académico en desarrollo activo como parte de un Diplomado.

@@ -64,21 +64,22 @@
                 <p class="auth-form-subtitle">Accede a tu cuenta para continuar gestionando tu cultivo.</p>
             </header>
 
-            <form class="auth-form" id="login-form" novalidate action="#" method="post">
+            <form class="auth-form" id="login-form" novalidate action="{{ url_for('login') }}" method="post">
 
                 <div class="form-group">
                     <label class="form-label" for="email">Correo electrónico</label>
                     <input
-                        class="form-input"
+                        class="form-input{% if errors.get('email') %} is-error{% endif %}"
                         type="email"
                         id="email"
                         name="email"
+                        value="{{ form.email }}"
                         placeholder="tu@correo.com"
                         autocomplete="email"
                         required
                     >
-                    <span class="form-error" id="email-error" role="alert">
-                        Ingresa un correo electrónico válido
+                    <span class="form-error{% if errors.get('email') %} is-visible{% endif %}" id="email-error" role="alert">
+                        {{ errors.get('email', 'Ingresa un correo electrónico válido') }}
                     </span>
                 </div>
 
@@ -86,7 +87,7 @@
                     <label class="form-label" for="password">Contraseña</label>
                     <div class="form-input-wrapper">
                         <input
-                            class="form-input"
+                            class="form-input{% if errors.get('password') %} is-error{% endif %}"
                             type="password"
                             id="password"
                             name="password"
@@ -96,8 +97,8 @@
                         >
                         <button type="button" class="input-eye" id="toggle-password" aria-label="Mostrar contraseña"></button>
                     </div>
-                    <span class="form-error" id="password-error" role="alert">
-                        La contraseña no puede estar vacía
+                    <span class="form-error{% if errors.get('password') %} is-visible{% endif %}" id="password-error" role="alert">
+                        {{ errors.get('password', 'La contraseña no puede estar vacía') }}
                     </span>
                 </div>
 
