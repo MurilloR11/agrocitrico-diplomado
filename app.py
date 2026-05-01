@@ -177,10 +177,7 @@ def register():
                 db.session.rollback()
                 errors["email"] = "No se pudo guardar el usuario en la base de datos"
             else:
-                session.clear()
-                session["user_id"] = user.id
-                session["user_name"] = user.fullname
-                return redirect(url_for("dashboard"))
+                return redirect(url_for("login"))
 
     return render_template("register.html", errors=errors, form=form)
 
