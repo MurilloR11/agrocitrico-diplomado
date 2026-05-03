@@ -13,117 +13,202 @@
 <body>
 
 <div class="dash-shell">
-    <aside class="dash-sidebar" aria-label="Panel principal">
-        <a class="dash-brand" href="{{ url_for('dashboard') }}" aria-label="Dashboard AgroCítrico">
-            <img src="{{ url_for('static', filename='img/agrocitrico_logo.svg') }}" alt="AgroCítrico">
-        </a>
 
-        <nav class="dash-nav" aria-label="Navegación del dashboard">
-            <a class="dash-nav-link is-active" href="{{ url_for('dashboard') }}">
-                <span class="dash-nav-icon" aria-hidden="true">⌂</span>
-                Panel
+    <!-- ── Sidebar ───────────────────────────────── -->
+    <aside class="dash-sidebar" aria-label="Navegación principal">
+        <div class="sidebar-top">
+            <a class="sidebar-brand" href="{{ url_for('dashboard') }}" aria-label="AgroCítrico">
+                <img src="{{ url_for('static', filename='img/agrocitrico_logo.svg') }}" alt="AgroCítrico">
             </a>
-            <a class="dash-nav-link" href="{{ url_for('ia') }}">
-                <span class="dash-nav-icon" aria-hidden="true">IA</span>
-                Asistente
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Menú principal">
+            <p class="sidebar-section-label">Principal</p>
+            <a class="sidebar-link is-active" href="{{ url_for('dashboard') }}">
+                <span class="sidebar-link-icon"><i data-lucide="layout-dashboard"></i></span>
+                <span>Panel</span>
             </a>
-            <a class="dash-nav-link" href="{{ url_for('index') }}">
-                <span class="dash-nav-icon" aria-hidden="true">↗</span>
-                Sitio
+            <p class="sidebar-section-label">General</p>
+            <a class="sidebar-link" href="{{ url_for('index') }}">
+                <span class="sidebar-link-icon"><i data-lucide="globe"></i></span>
+                <span>Sitio web</span>
             </a>
         </nav>
 
-        <form action="{{ url_for('logout') }}" method="post" class="dash-logout">
-            <button type="submit">
-                <span aria-hidden="true">↩</span>
-                Cerrar sesión
-            </button>
-        </form>
+        <div class="sidebar-footer">
+            <div class="sidebar-user">
+                <div class="sidebar-avatar" aria-hidden="true">{{ user.fullname[0].upper() }}</div>
+                <div class="sidebar-user-info">
+                    <p class="sidebar-user-name">{{ user.fullname }}</p>
+                    <p class="sidebar-user-role">Agricultor</p>
+                </div>
+            </div>
+            <form action="{{ url_for('logout') }}" method="post">
+                <button class="sidebar-logout" type="submit" title="Cerrar sesión" aria-label="Cerrar sesión">
+                    <i data-lucide="log-out"></i>
+                </button>
+            </form>
+        </div>
     </aside>
 
-    <main class="dash-main">
-        <header class="dash-header">
-            <div>
-                <p class="dash-kicker">Gestión del cultivo</p>
-                <h1>Hola, {{ user.fullname }}</h1>
-                <p class="dash-subtitle">Resumen operativo de labores, alertas y sensores del limonar.</p>
+    <!-- ── Cuerpo principal ───────────────────────── -->
+    <div class="dash-body">
+
+        <!-- Topbar -->
+        <header class="dash-topbar">
+            <div class="topbar-greeting">
+                <p class="topbar-date" id="js-date"></p>
+                <h1>Hola, {{ user.fullname.split()[0] }} <span aria-hidden="true">👋</span></h1>
             </div>
-            <div class="dash-weather" aria-label="Estado ambiental">
-                <span>27 C</span>
-                <strong>Clima estable</strong>
+            <div class="topbar-weather" aria-label="Estado del clima">
+                <span class="weather-icon"><i data-lucide="sun"></i></span>
+                <div>
+                    <p class="weather-temp">27°C</p>
+                    <p class="weather-desc">Clima estable</p>
+                </div>
             </div>
         </header>
 
-        <section class="dash-grid dash-stats" aria-label="Indicadores principales">
-            {% for item in stats %}
-            <article class="dash-card stat-card">
-                <p>{{ item.label }}</p>
-                <strong>{{ item.value }}</strong>
-                <span>{{ item.detail }}</span>
-            </article>
-            {% endfor %}
-        </section>
+        <!-- Main -->
+        <main class="dash-main">
 
-        <section class="dash-content">
-            <article class="dash-card crop-card">
-                <div class="crop-copy">
-                    <p class="dash-kicker">Estado del cultivo</p>
-                    <h2>Limonar en seguimiento activo</h2>
-                    <p>Las próximas labores priorizan humedad, nutrición y control preventivo de plagas.</p>
-                </div>
-                <img src="{{ url_for('static', filename='img/campesino.png') }}" alt="Agricultor revisando el cultivo">
-            </article>
-
-            <article class="dash-card tasks-card">
-                <div class="card-head">
-                    <h2>Agenda de labores</h2>
-                    <a href="{{ url_for('ia') }}">Consultar IA</a>
-                </div>
-                <div class="task-list">
-                    {% for task in tasks %}
-                    <div class="task-row">
-                        <div>
-                            <strong>{{ task.name }}</strong>
-                            <span>{{ task.date }}</span>
-                        </div>
-                        <p>{{ task.status }}</p>
+            <!-- Stats -->
+            <section class="stats-row" aria-label="Indicadores principales">
+                {% for item in stats %}
+                <article class="stat-card
+                    {% if loop.index == 1 %}stat-green
+                    {% elif loop.index == 2 %}stat-red
+                    {% elif loop.index == 3 %}stat-blue
+                    {% else %}stat-amber{% endif %}">
+                    <div class="stat-icon" aria-hidden="true">
+                        {% if loop.index == 1 %}<i data-lucide="sprout"></i>
+                        {% elif loop.index == 2 %}<i data-lucide="alert-triangle"></i>
+                        {% elif loop.index == 3 %}<i data-lucide="droplets"></i>
+                        {% else %}<i data-lucide="wheat"></i>{% endif %}
                     </div>
-                    {% endfor %}
-                </div>
-            </article>
-
-            <article class="dash-card sensors-card">
-                <div class="card-head">
-                    <h2>Sensores IoT</h2>
-                    <span>En línea</span>
-                </div>
-                <div class="sensor-list">
-                    {% for sensor in sensors %}
-                    <div class="sensor-row">
-                        <div>
-                            <strong>{{ sensor.name }}</strong>
-                            <span>{{ sensor.trend }}</span>
-                        </div>
-                        <p>{{ sensor.value }}</p>
+                    <div class="stat-body">
+                        <p class="stat-label">{{ item.label }}</p>
+                        <p class="stat-value">{{ item.value }}</p>
+                        <p class="stat-detail">{{ item.detail }}</p>
                     </div>
-                    {% endfor %}
-                </div>
-            </article>
+                </article>
+                {% endfor %}
+            </section>
 
-            <article class="dash-card harvest-card">
-                <div class="card-head">
-                    <h2>Cosecha</h2>
-                    <span>Semana actual</span>
-                </div>
-                <div class="harvest-meter" data-progress="72">
-                    <div></div>
-                </div>
-                <p>72% de avance frente a la meta semanal de recolección.</p>
-            </article>
-        </section>
-    </main>
-</div>
+            <!-- Grid de contenido -->
+            <div class="content-grid">
 
+                <!-- Banner del cultivo -->
+                <article class="card crop-banner">
+                    <div class="crop-banner-body">
+                        <span class="crop-badge">
+                            <i data-lucide="leaf"></i>
+                            Estado del cultivo
+                        </span>
+                        <h2>Limonar en<br>seguimiento activo</h2>
+                        <p>Las próximas labores priorizan humedad, nutrición y control preventivo de plagas.</p>
+                        <div class="crop-tags">
+                            <span><i data-lucide="droplets"></i> Riego activo</span>
+                            <span><i data-lucide="shield"></i> Control de plagas</span>
+                        </div>
+                    </div>
+                    <img src="{{ url_for('static', filename='img/campesino.png') }}"
+                         alt="Agricultor revisando el cultivo"
+                         class="crop-img">
+                </article>
+
+                <!-- Agenda de labores -->
+                <article class="card tasks-card">
+                    <div class="card-header">
+                        <h2><i data-lucide="calendar-check"></i> Agenda de labores</h2>
+                    </div>
+                    <ul class="task-list">
+                        {% for task in tasks %}
+                        <li class="task-item">
+                            <div class="task-icon-wrap task-icon-{% if loop.index == 1 %}red{% elif loop.index == 2 %}amber{% else %}green{% endif %}" aria-hidden="true">
+                                {% if loop.index == 1 %}<i data-lucide="droplets"></i>
+                                {% elif loop.index == 2 %}<i data-lucide="search"></i>
+                                {% else %}<i data-lucide="leaf"></i>{% endif %}
+                            </div>
+                            <div class="task-body">
+                                <p class="task-name">{{ task.name }}</p>
+                                <p class="task-date">
+                                    <i data-lucide="clock"></i>
+                                    {{ task.date }}
+                                </p>
+                            </div>
+                            <span class="task-badge task-badge-{% if loop.index == 1 %}red{% elif loop.index == 2 %}amber{% else %}blue{% endif %}">
+                                {{ task.status }}
+                            </span>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </article>
+
+                <!-- Sensores IoT -->
+                <article class="card sensors-card">
+                    <div class="card-header">
+                        <h2><i data-lucide="activity"></i> Sensores IoT</h2>
+                        <span class="online-badge">
+                            <i data-lucide="wifi"></i> En línea
+                        </span>
+                    </div>
+                    <ul class="sensor-list">
+                        {% for sensor in sensors %}
+                        <li class="sensor-item">
+                            <div class="sensor-icon-wrap sensor-icon-{% if loop.index == 1 %}amber{% elif loop.index == 2 %}blue{% else %}green{% endif %}" aria-hidden="true">
+                                {% if loop.index == 1 %}<i data-lucide="thermometer"></i>
+                                {% elif loop.index == 2 %}<i data-lucide="wind"></i>
+                                {% else %}<i data-lucide="droplets"></i>{% endif %}
+                            </div>
+                            <div class="sensor-body">
+                                <p class="sensor-name">{{ sensor.name }}</p>
+                                <p class="sensor-trend">{{ sensor.trend }}</p>
+                            </div>
+                            <p class="sensor-value sensor-value-{% if loop.index == 1 %}amber{% elif loop.index == 2 %}blue{% else %}green{% endif %}">
+                                {{ sensor.value }}
+                            </p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </article>
+
+                <!-- Cosecha -->
+                <article class="card harvest-card">
+                    <div class="card-header">
+                        <h2><i data-lucide="wheat"></i> Cosecha semanal</h2>
+                        <span class="card-label">Semana actual</span>
+                    </div>
+                    <div class="harvest-body">
+                        <div class="harvest-ring-wrap" aria-label="72% de la meta completado">
+                            <svg class="harvest-ring" viewBox="0 0 80 80" aria-hidden="true">
+                                <circle class="ring-bg"   cx="40" cy="40" r="34"/>
+                                <circle class="ring-fill" cx="40" cy="40" r="34"
+                                        stroke-dasharray="213.6"
+                                        stroke-dashoffset="59.8"/>
+                            </svg>
+                            <div class="harvest-ring-label" aria-hidden="true">
+                                <strong>72%</strong>
+                                <span>meta</span>
+                            </div>
+                        </div>
+                        <div class="harvest-details">
+                            <p class="harvest-headline">42 kg recolectados</p>
+                            <p class="harvest-sub">Meta semanal: 58 kg</p>
+                            <div class="harvest-bar" data-progress="72">
+                                <div></div>
+                            </div>
+                            <p class="harvest-bar-note">72% completado esta semana</p>
+                        </div>
+                    </div>
+                </article>
+
+            </div><!-- /content-grid -->
+        </main>
+    </div><!-- /dash-body -->
+</div><!-- /dash-shell -->
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script src="{{ url_for('static', filename='js/dashboard.js') }}" defer></script>
 </body>
 </html>
